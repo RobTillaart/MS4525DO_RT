@@ -38,7 +38,7 @@
 
 unittest_setup()
 {
-  fprintf(stderr, "MS4525DO_VERSION: %s\n", (char *) MS4525DO_VERSION);
+  fprintf(stderr, "MS4525DO_LIB_VERSION: %s\n", (char *) MS4525DO_LIB_VERSION);
 }
 
 
@@ -49,12 +49,12 @@ unittest_teardown()
 
 unittest(test_constructor)
 {
-  MS4525DO sensor(0x58, 100);
+  MS4525DO sensor(0x58);
 
   assertEqual(MS4525DO_INIT, sensor.state());
 
   Wire.begin();
-  assertTrue(sensor.begin());
+  assertTrue(sensor.begin(100));
   assertTrue(sensor.isConnected());    //  incorrect, keep build happy
 
   fprintf(stderr, "test state\n");
@@ -70,7 +70,7 @@ unittest(test_constants)
   assertEqual(1,  MS4525DO_OK);
   assertEqual(0,  MS4525DO_INIT);
   assertEqual(-1, MS4525DO_READ_ERROR);
-  assertEqual(-2, MS4525DO_C000_ERROR);
+  assertEqual(-2, MS4525DO_OVF_ERROR);
   assertEqual(-3, MS4525DO_CONNECT_ERROR);
 }
 

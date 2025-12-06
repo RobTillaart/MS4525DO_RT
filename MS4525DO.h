@@ -61,7 +61,8 @@ public:
   //  returns the pressure of last successful read
   float    getMilliBar()    { return _pressure; };
   float    getPSI()         { return _pressure * MILLIBAR2PSI; };
-  float    getTemperature() { return _temperature; };
+  float    getTemperature() { return _temperature; };  //  Celsius
+  //  float    getFahrenheit()  { return _temperature * 1.8 + 32.0; };
 
 
   //  # errors since last good read

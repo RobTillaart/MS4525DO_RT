@@ -21,7 +21,7 @@ MS4525DO::MS4525DO(uint8_t address, TwoWire *wire)
   _wire        = wire;
   _maxPressure = 0;
   _state       = MS4525DO_INIT;
-  _state       = 'A';
+  _type        = 'A';
 }
 
 
@@ -62,9 +62,10 @@ bool MS4525DO::begin(uint8_t psi, char type)
 
 void MS4525DO::reset()
 {
-  _errorCount = 0;
-  _lastRead = 0;
-  _pressure = 0;
+  _errorCount  = 0;
+  _lastRead    = 0;
+  _pressure    = 0;
+  _temperature = 0;
 }
 
 
