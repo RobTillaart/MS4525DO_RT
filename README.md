@@ -16,10 +16,14 @@ Arduino library for MS4525DO pressure sensor.
 
 ## Description
 
-The MS4525DO library can read the sensor and give the pressure in millibar,
-bar or PSI or many other units. See below.
+**Experimental**
 
-library is spin off of I2C_ASDX so there might be some leftovers...
+The MS4525DO library can read the sensor and give the pressure in millibar,
+bar or PSI. 
+Furthermore the library provides temperature in Celsius or Fahrenheit..
+
+
+NOTE: library is based upon I2C_ASDX lib so there might be some leftovers...
 
 
 ### Related
@@ -56,4 +60,107 @@ Always check datasheet for the exact pins.
 ```cpp
 #include "MS4525DO.h"
 ```
+
+
+### Constructor
+
+- **MS4525DO(uint8_t address, TwoWire \*wire = &Wire)** Constructor,
+I2C address and optional the wire interface can be defined.
+- **bool begin(uint8_t psi, char type = 'A')** sets the maximum PSI
+and the device type (A or B) and initializes internals.
+Returns true if address can be found  on I2C bus.
+- **void reset()** resets internal variables, including pressure and temperature.
+- **bool isConnected()** tests if the address can be found on I2C bus.
+- **uint8_t getAddress()** returns I2C address used.
+Mainly for debug message.
+
+
+### Read
+
+Before any call to **getMilliBar()** or **getTemperature()** one need to call **read()** unless one wants the last value read.
+
+- **int read()** actually reads the sensor, checks for errors,
+calculates the pressure and set the lastRead timestamp.
+Returns **MS4525DO_OK** or an error code.
+
+
+### Units
+
+- **float getMilliBar()** returns pressure in milliBar.
+Returns 0 after a reset() and if no read() has been done yet.
+Calling **getMilliBar()** (Or any of the other pressure functions) multiple times
+without read() will return the same value again.
+- **float getPSI()** returns pressure in PSI = Pounds per Square Inch.
+
+Related library: https://github.com/RobTillaart/pressure conversions
+
+- **float getTemperature()** returns temperature in Celsius.
+- **float getFahrenheit()** returns temperatue in Fahrenheit.
+
+Related library:  https://github.com/RobTillaart/temperature conversions
+
+
+### State
+
+- **uint16_t errorCount()** total counter for the number of errors occurred.
+- **uint32_t lastRead()** time in milliseconds of last successful read of the sensor.
+- **int state()** last known state of read, also returned by **read()**
+
+|  state                   |  meaning             |
+|:-------------------------|:---------------------|
+|  MS4525DO_OK             |  no error            |
+|  MS4525DO_INIT           |  begin() not called  |
+|  MS4525DO_READ_ERROR     |  I2C error           |
+|  MS4525DO_OVF_ERROR      |  sensor error        |
+|  MS4525DO_CONNECT_ERROR  |  I2C error           |
+
+
+## Testing
+
+TODO - REWRITE
+
+The library is not tested yet.
+
+
+## Tested types
+
+|  Type number        |  result  |  notes  |
+|:--------------------|:--------:|:--------|
+|                     |          |
+|                     |          |
+|                     |          |
+
+(elaborate test table)
+
+
+## Future
+
+#### Must
+
+- update documentation.
+- get hardware
+- test
+- sync with I2C_ASDX
+
+#### Should
+
+- add examples
+- add error/state code for after reset() and before read()
+  - MS4525DO_NO_READ or MS4525DO_RESET
+
+#### Could
+
+
+#### Wont
+
+-  move code from .h to .cpp
+
+
+## Support
+
+If you appreciate my libraries, you can support the development and maintenance.
+Improve the quality of the libraries by providing issues and Pull Requests, or
+donate through PayPal or GitHub sponsors.
+
+Thank you,
 
