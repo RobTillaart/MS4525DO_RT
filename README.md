@@ -186,7 +186,8 @@ TODO:
 - improve state code after reset() and before read() ?
   - MS4525DO_NO_READ or MS4525DO_RESET?
 - MS4525DO_OVF_ERROR should bits just be masked?
-- begin(float psi) to allow calibration or even arbitrary units.
+- int begin(float psi) to allow calibration or even arbitrary units.
+  - return state?
 - pressure in N/m2 => pitot formula. `v = sqrt(2 * pressure / rho);`
   - rho is specific weight in kg/m3, depends on humidity temperature and height.
 
