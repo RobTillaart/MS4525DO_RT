@@ -1,12 +1,12 @@
 
-[![Arduino CI](https://github.com/RobTillaart/MS4525DO/workflows/Arduino%20CI/badge.svg)](https://github.com/marketplace/actions/arduino_ci)
-[![Arduino-lint](https://github.com/RobTillaart/MS4525DO/actions/workflows/arduino-lint.yml/badge.svg)](https://github.com/RobTillaart/MS4525DO/actions/workflows/arduino-lint.yml)
-[![JSON check](https://github.com/RobTillaart/MS4525DO/actions/workflows/jsoncheck.yml/badge.svg)](https://github.com/RobTillaart/MS4525DO/actions/workflows/jsoncheck.yml)
-[![GitHub issues](https://img.shields.io/github/issues/RobTillaart/MS4525DO.svg)](https://github.com/RobTillaart/MS4525DO/issues)
+[![Arduino CI](https://github.com/RobTillaart/MS4525DO_RT/workflows/Arduino%20CI/badge.svg)](https://github.com/marketplace/actions/arduino_ci)
+[![Arduino-lint](https://github.com/RobTillaart/MS4525DO_RT/actions/workflows/arduino-lint.yml/badge.svg)](https://github.com/RobTillaart/MS4525DO_RT/actions/workflows/arduino-lint.yml)
+[![JSON check](https://github.com/RobTillaart/MS4525DO_RT/actions/workflows/jsoncheck.yml/badge.svg)](https://github.com/RobTillaart/MS4525DO_RT/actions/workflows/jsoncheck.yml)
+[![GitHub issues](https://img.shields.io/github/issues/RobTillaart/MS4525DO_RT.svg)](https://github.com/RobTillaart/MS4525DO_RT/issues)
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/RobTillaart/MS4525DO/blob/master/LICENSE)
-[![GitHub release](https://img.shields.io/github/release/RobTillaart/MS4525DO.svg?maxAge=3600)](https://github.com/RobTillaart/MS4525DO/releases)
-[![PlatformIO Registry](https://badges.registry.platformio.org/packages/robtillaart/library/MS4525DO.svg)](https://registry.platformio.org/libraries/robtillaart/MS4525DO)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/RobTillaart/MS4525DO_RT/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/RobTillaart/MS4525DO_RT.svg?maxAge=3600)](https://github.com/RobTillaart/MS4525DO_RT/releases)
+[![PlatformIO Registry](https://badges.registry.platformio.org/packages/robtillaart/library/MS4525DO.svg)](https://registry.platformio.org/libraries/RobTillaart/MS4525DO_RT)
 
 
 # MS4525DO
