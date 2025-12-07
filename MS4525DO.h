@@ -4,7 +4,7 @@
 //  AUTHOR: Rob Tillaart
 // VERSION: 0.1.0
 //    DATE: 2025-12-06
-// PURPOSE: Arduino library for MS4525DO pressure and temperature sensor.
+// PURPOSE: Arduino library for the I2C MS4525DO pressure and temperature sensor.
 //     URL: https://github.com/RobTillaart/MS4525DO_RT
 
 
