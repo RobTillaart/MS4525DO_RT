@@ -137,6 +137,14 @@ Related library:  https://github.com/RobTillaart/temperature conversions
 |  MS4525DO_CONNECT_ERROR  |  I2C error           |
 
 
+### Debugging
+
+Raw counter API, for debugging or your own conversion.
+
+- **int rawPressureCount()** idem.
+- **int rawTemperatureCount()** idem.
+
+
 ## Testing
 
 TODO:
