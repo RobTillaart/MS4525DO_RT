@@ -13,10 +13,16 @@ getAddress	KEYWORD2
 
 read	KEYWORD2
 getMilliBar	KEYWORD2
+getPSI	KEYWORD2
+getCelsius	KEYWORD2
+getFahrenheit	KEYWORD2
 
 errorCount	KEYWORD2
 lastRead	KEYWORD2
 state	KEYWORD2
+
+rawPressureCount	KEYWORD2
+rawTemperatureCount	KEYWORD2
 
 
 # Constants (LITERAL1)

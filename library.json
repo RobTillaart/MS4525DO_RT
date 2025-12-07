@@ -1,6 +1,6 @@
 {
   "name": "MS4525DO_RT",
-  "keywords": "PSI,mBar,Pressure,I2C,Sensor",
+  "keywords": "PSI,mBar,Pressure,temperature,I2C,Sensor",
   "description": "Arduino library for MS4525DO pressure and temperature sensor.",
   "authors":
   [

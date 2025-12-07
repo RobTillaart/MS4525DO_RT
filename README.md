@@ -20,22 +20,29 @@ Arduino library for MS4525DO pressure sensor.
 
 The MS4525DO library can read the sensor and give the pressure in millibar,
 bar or PSI. 
-Furthermore the library provides temperature in Celsius or Fahrenheit..
+Furthermore the library provides temperature in Celsius or Fahrenheit.
 
 
 NOTE: library is based upon I2C_ASDX lib so there might be some leftovers...
 
+Feedback, as always, is welcome.
 
-### Related
 
-- https://github.com/RobTillaart/pressure - pressure conversions
-- https://github.com/RobTillaart/Temperature - temperature conversions 
-- https://github.com/RobTillaart/I2C_ASDX - (I2C) pressure + conversions 
-- https://github.com/RobTillaart/MS4525DO - (I2C) temperature pressure sensor 
-- https://github.com/RobTillaart/MS5837 - (I2C) temperature pressure sensor  (incl pressure to altitude)
-- https://github.com/RobTillaart/MS5611 - (I2C) temperature pressure sensor  (incl pressure to altitude)
-- https://github.com/RobTillaart/MSP300 - (I2C) industrial pressure transducer
-- https://swharden.com/blog/2017-04-29-precision-pressure-meter-project/
+### Types
+
+Type numbers look like 4525DO – DS 3 B K 030 D P M -   see datasheet for details.
+
+|  field         |  value                  |  notes  |
+|:---------------|:------------------------|:--------|
+|  Package Type  |  DS                     |
+|  Voltage       |  3 = 3.3V; 5 = 5.0V     |
+|  Output Type   |  A (10-90) or B (5-95)  |
+|  Interface     |  S = SPI, other = I2C   |  0x28,0x36,0x46,0x48..0x51
+|  Pressure PSI  |  150,100,50,30,15,5,2,1 |
+|  Pressure Type |  D,G,V,A,C              |
+|  Pin Type      |  P,S,L                  |
+|  Option Type   |  F,L,M (blank)          |
+
 
 
 ### Hardware connection
@@ -55,6 +62,24 @@ Always check datasheet for the exact pins.
 ```
 
 
+### Related
+
+- https://github.com/RobTillaart/pressure - pressure conversions
+- https://github.com/RobTillaart/Temperature - temperature conversions 
+- https://github.com/RobTillaart/I2C_ASDX - (I2C) pressure + conversions 
+- https://github.com/RobTillaart/MS4525DO - (I2C) temperature pressure sensor 
+- https://github.com/RobTillaart/MS5837 - (I2C) temperature pressure sensor  (incl pressure to altitude)
+- https://github.com/RobTillaart/MS5611 - (I2C) temperature pressure sensor  (incl pressure to altitude)
+- https://github.com/RobTillaart/MSP300 - (I2C) industrial pressure transducer
+- https://swharden.com/blog/2017-04-29-precision-pressure-meter-project/
+
+
+
+## I2C
+
+Valid addresses are: 0x28,0x36,0x46,0x48..0x51
+
+
 ## Interface
 
 ```cpp
@@ -65,10 +90,11 @@ Always check datasheet for the exact pins.
 ### Constructor
 
 - **MS4525DO(uint8_t address, TwoWire \*wire = &Wire)** Constructor,
-I2C address and optional the wire interface can be defined.
+I2C address and optional the wire (I2C bus) interface can be defined.
 - **bool begin(uint8_t psi, char type = 'A')** sets the maximum PSI
-and the device type (A or B) and initializes internals.
-Returns true if address can be found  on I2C bus.
+and the device type ('A' or 'B') and initializes internals.
+Allowed values for psi parameter: 150, 100, 50, 30, 15, 5, 2, 1
+Returns true if address can be found on the I2C bus.
 - **void reset()** resets internal variables, including pressure and temperature.
 - **bool isConnected()** tests if the address can be found on I2C bus.
 - **uint8_t getAddress()** returns I2C address used.
@@ -82,10 +108,6 @@ Before any call to **getMilliBar()** or **getTemperature()** one need to call **
 - **int read()** actually reads the sensor, checks for errors,
 calculates the pressure and set the lastRead timestamp.
 Returns **MS4525DO_OK** or an error code.
-
-
-### Units
-
 - **float getMilliBar()** returns pressure in milliBar.
 Returns 0 after a reset() and if no read() has been done yet.
 Calling **getMilliBar()** (Or any of the other pressure functions) multiple times
@@ -94,7 +116,7 @@ without read() will return the same value again.
 
 Related library: https://github.com/RobTillaart/pressure conversions
 
-- **float getTemperature()** returns temperature in Celsius.
+- **float getCelsius()** returns temperature in Celsius.
 - **float getFahrenheit()** returns temperatue in Fahrenheit.
 
 Related library:  https://github.com/RobTillaart/temperature conversions
@@ -117,20 +139,13 @@ Related library:  https://github.com/RobTillaart/temperature conversions
 
 ## Testing
 
-TODO - REWRITE
-
-The library is not tested yet.
-
-
-## Tested types
+TODO:
 
 |  Type number        |  result  |  notes  |
 |:--------------------|:--------:|:--------|
 |                     |          |
 |                     |          |
 |                     |          |
-
-(elaborate test table)
 
 
 ## Future
@@ -140,16 +155,20 @@ The library is not tested yet.
 - update documentation.
 - get hardware
 - test
-- sync with I2C_ASDX
+- keep in sync with I2C_ASDX
 
 #### Should
 
-- add examples
-- add error/state code for after reset() and before read()
-  - MS4525DO_NO_READ or MS4525DO_RESET
+- support Vacuum series transport function (page 6)
+  - for now one might use P = -sensor.getPSI();
 
 #### Could
 
+- add examples
+- add altitude code (from MS5837)
+- improve state code after reset() and before read() ?
+  - MS4525DO_NO_READ or MS4525DO_RESET?
+- MS4525DO_OVF_ERROR shouold bits just be masked?
 
 #### Wont
 

@@ -1,7 +1,7 @@
 //
-//    FILE: MS4525DO_minimal.ino
+//    FILE: MS4525DO_raw_data.ino
 //  AUTHOR: Rob Tillaart
-// PURPOSE: demo
+// PURPOSE: demo raw counters
 //     URL: https://github.com/RobTillaart/MS4525DO_RT
 
 
@@ -22,6 +22,8 @@ void setup()
 
   Wire.begin();
   sensor.begin(100);
+
+  Serial.println("Pres \tTemp");
 }
 
 
@@ -30,11 +32,9 @@ void loop()
   int state = sensor.read();
   if (state == MS4525DO_OK)
   {
-    Serial.print("mBar:\t");
-    Serial.println(sensor.getMilliBar());
-    Serial.print("PSI:\t");
-    Serial.println(sensor.getPSI());
-    Serial.println();
+    Serial.print(sensor.rawPressureCount());
+    Serial.print("\t");
+    Serial.println(sensor.rawTemperatureCount());
   }
   else
   {

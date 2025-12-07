@@ -8,7 +8,7 @@
 #include "MS4525DO.h"
 
 
-MS4525DO sensor(0x58);
+MS4525DO sensor(0x28);
 
 uint32_t start, stop;
 volatile uint32_t pressure = 0;

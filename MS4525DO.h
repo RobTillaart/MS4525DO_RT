@@ -55,14 +55,14 @@ public:
   uint8_t  getAddress();
 
 
-  //  returns status OK (0) or ERROR ( not 0 )
+  //  returns status OK (1) or ERROR ( other )
   int      read();
 
   //  returns the pressure of last successful read
-  float    getMilliBar()    { return _pressure; };
-  float    getPSI()         { return _pressure * MILLIBAR2PSI; };
-  float    getTemperature() { return _temperature; };  //  Celsius
-  //  float    getFahrenheit()  { return _temperature * 1.8 + 32.0; };
+  float    getMilliBar()   { return _pressure; };
+  float    getPSI()        { return _pressure * MILLIBAR2PSI; };
+  float    getCelsius()    { return _temperature; };
+  float    getFahrenheit() { return _temperature * 1.8 + 32.0; };
 
 
   //  # errors since last good read
@@ -72,6 +72,10 @@ public:
   //  get the last state
   int      state()      { return _state; };
 
+  //  debugging / own conversion.
+  int      rawPressureCount()    { return _rpc; };
+  int      rawTemperatureCount() { return _rtc; };
+
 
 private:
   uint8_t  _address;
@@ -80,6 +84,8 @@ private:
   float    _maxPressure;  //  mBar
   float    _pressure;     //  mBar
   float    _temperature;  //  Celsius
+  int      _rpc;          //  raw counter for debugging.
+  int      _rtc;          //  raw counter for debugging.
 
   uint8_t  _state;
   uint32_t _errorCount;

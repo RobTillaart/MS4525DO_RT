@@ -66,6 +66,7 @@ void MS4525DO::reset()
   _lastRead    = 0;
   _pressure    = 0;
   _temperature = 0;
+  _state       = MS4525DO_INIT;
 }
 
 
@@ -92,9 +93,9 @@ int MS4525DO::read()
     return _state;
   }
   //  PROCESS PRESSURE
-  int count = _wire->read() * 256;  //  hi byte
-  count    += _wire->read();        //  lo byte
-  if (count & 0xC000)
+  _rpc = _wire->read() * 256;  //  hi byte
+  _rpc    += _wire->read();    //  lo byte
+  if (_rpc & 0xC000)
   {
     _errorCount++;
     _state = MS4525DO_OVF_ERROR;  //  no documentation, bits may not be set
@@ -106,29 +107,29 @@ int MS4525DO::read()
   //  B ==  5 - 95
   if (_type == 'A')
   {
-    //  _pressure = map(count, 1638, 14746, 0, _maxPressure);
-    //  _pressure = (count - 1638) * (_maxPressure - 0) / ( 14746 - 1638);
-    _pressure = (count - 1638) * _maxPressure * 7.6289289E-5;
+    //  _pressure = map(_rpc, 1638, 14746, 0, _maxPressure);
+    //  _pressure = (_rpc - 1638) * (_maxPressure - 0) / ( 14746 - 1638);
+    _pressure = (_rpc - 1638) * _maxPressure * 7.6289289E-5;
   }
   else // type == 'B')
   {
-    //  _pressure = map(count, 819, 15563, 0, _maxPressure);
-    //  _pressure = (count - 819) * (_maxPressure - 0) / ( 15563 - 819);
-    _pressure = (count - 819) * _maxPressure * 6.7801207E-5;
+    //  _pressure = map(_rpc, 819, 15563, 0, _maxPressure);
+    //  _pressure = (_rpc - 819) * (_maxPressure - 0) / ( 15563 - 819);
+    _pressure = (_rpc - 819) * _maxPressure * 6.7824200E-5;
   }
 
 
   //  PROCESS TEMPERATURE
-  count  = _wire->read() * 256;  //  hi byte
-  count += _wire->read();        //  lo byte
-  if (count & 0xF800)
+  _rtc  = _wire->read() * 256;  //  hi byte
+  _rtc += _wire->read();        //  lo byte
+  if (_rtc & 0xF800)
   {
     _errorCount++;
     _state = MS4525DO_OVF_ERROR;  //  no documentation, bits may not be set
     return _state;
   }
-  //  _temperature = -50.0 + count * 200.0 / 2047;
-  _temperature = -50.0 + count * (200.0 * 4.8851979E-4);
+  //  _temperature = -50.0 + _rtc * 200.0 / 2047;
+  _temperature = -50.0 + _rtc * (200.0 * 4.8851979E-4);
 
   _state = MS4525DO_OK;
   return _state;

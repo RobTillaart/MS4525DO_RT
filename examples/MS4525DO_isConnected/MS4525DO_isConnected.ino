@@ -8,7 +8,7 @@
 #include "MS4525DO.h"
 
 
-MS4525DO sensor(0x58);
+MS4525DO sensor(0x28);
 
 
 void setup()
