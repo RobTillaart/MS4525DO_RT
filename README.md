@@ -11,7 +11,7 @@
 
 # MS4525DO
 
-Arduino library for MS4525DO pressure sensor.
+Arduino library for the I2C MS4525DO pressure and temperature sensor.
 
 
 ## Description
@@ -22,9 +22,13 @@ The MS4525DO library can read the I2C version of the sensor and return the
 pressure in millibar or PSI. 
 Furthermore the library provides temperature in Celsius or Fahrenheit.
 
-Pressure is measured in 16384 "steps", from which 80% (type A) or 90% (type B)
-are actually used. This means 13107 or 14745 steps for the full range, giving
-at least 3 significant digits.
+Pressure is measured in 14 bit = 16384 "steps", from which 80% (type A) 
+or 90% (type B) are actually used. 
+This means 13107 or 14745 steps for the full range, giving at least 3 
+significant digits.
+
+Temperature is measured in 11 bit = 2048 "steps" all used. 
+The range is -50-150 degrees C.
 
 Note: library is based upon I2C_ASDX library.
 
@@ -183,6 +187,9 @@ TODO:
   - MS4525DO_NO_READ or MS4525DO_RESET?
 - MS4525DO_OVF_ERROR should bits just be masked?
 - begin(float psi) to allow calibration or even arbitrary units.
+- pressure in N/m2 => pitot formula. `v = sqrt(2 * pressure / rho);`
+  - rho is specific weight in kg/m3, depends on humidity temperature and height.
+
 
 #### Wont
 
