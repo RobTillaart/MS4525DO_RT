@@ -3,15 +3,11 @@
 //  AUTHOR: Rob Tillaart
 // VERSION: 0.1.0
 //    DATE: 2025-12-06
-// PURPOSE: Arduino library for MS4525DO pressure and temperature sensor.
+// PURPOSE: Arduino library for the I2C MS4525DO pressure and temperature sensor.
 //     URL: https://github.com/RobTillaart/MS4525DO_RT
 
 
 #include "MS4525DO.h"
-
-
-
-//  TODO TYPE
 
 
 MS4525DO::MS4525DO(uint8_t address, TwoWire *wire)
@@ -103,6 +99,7 @@ int MS4525DO::read()
   }
 
   _lastRead = millis();
+  //  raw = 0..16383
   //  A == 10 - 90
   //  B ==  5 - 95
   if (_type == 'A')
@@ -111,7 +108,7 @@ int MS4525DO::read()
     //  _pressure = (_rpc - 1638) * (_maxPressure - 0) / ( 14746 - 1638);
     _pressure = (_rpc - 1638) * _maxPressure * 7.6289289E-5;
   }
-  else // type == 'B')
+  else // type == 'B'
   {
     //  _pressure = map(_rpc, 819, 15563, 0, _maxPressure);
     //  _pressure = (_rpc - 819) * (_maxPressure - 0) / ( 15563 - 819);

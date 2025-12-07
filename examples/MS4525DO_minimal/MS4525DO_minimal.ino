@@ -22,6 +22,7 @@ void setup()
 
   Wire.begin();
   sensor.begin(100);
+  //  optimistic no error check
 }
 
 

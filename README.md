@@ -18,12 +18,17 @@ Arduino library for MS4525DO pressure sensor.
 
 **Experimental**
 
-The MS4525DO library can read the sensor and give the pressure in millibar,
-bar or PSI. 
+The MS4525DO library can read the I2C version of the sensor and return the 
+pressure in millibar or PSI. 
 Furthermore the library provides temperature in Celsius or Fahrenheit.
 
+Pressure is measured in 16384 "steps", from which 80% (type A) or 90% (type B)
+are actually used. This means 13107 or 14745 steps for the full range, giving
+at least 3 significant digits.
 
-NOTE: library is based upon I2C_ASDX lib so there might be some leftovers...
+Note: library is based upon I2C_ASDX library.
+
+Note: the library does not support the SPI version of the sensor.
 
 Feedback, as always, is welcome.
 
@@ -42,7 +47,6 @@ Type numbers look like 4525DO – DS 3 B K 030 D P M -   see datasheet for detai
 |  Pressure Type |  D,G,V,A,C              |
 |  Pin Type      |  P,S,L                  |
 |  Option Type   |  F,L,M (blank)          |
-
 
 
 ### Hardware connection
@@ -77,7 +81,7 @@ Always check datasheet for the exact pins.
 
 ## I2C
 
-Valid addresses are: 0x28,0x36,0x46,0x48..0x51
+Valid addresses are: 0x28,0x36,0x46,0x48..0x51 (interface type, I,J,K,0..9).
 
 
 ## Interface
@@ -95,9 +99,9 @@ I2C address and optional the wire (I2C bus) interface can be defined.
 and the device type ('A' or 'B') and initializes internals.
 Allowed values for psi parameter: 150, 100, 50, 30, 15, 5, 2, 1
 Returns true if address can be found on the I2C bus.
-- **void reset()** resets internal variables, including pressure and temperature.
-- **bool isConnected()** tests if the address can be found on I2C bus.
-- **uint8_t getAddress()** returns I2C address used.
+- **void reset()** resets the internal variables, including pressure and temperature.
+- **bool isConnected()** tests if the I2C address can be found on the I2C bus.
+- **uint8_t getAddress()** returns the I2C address used.
 Mainly for debug message.
 
 
@@ -106,7 +110,7 @@ Mainly for debug message.
 Before any call to **getMilliBar()** or **getTemperature()** one need to call **read()** unless one wants the last value read.
 
 - **int read()** actually reads the sensor, checks for errors,
-calculates the pressure and set the lastRead timestamp.
+calculates the pressure and temperature and set the lastRead timestamp.
 Returns **MS4525DO_OK** or an error code.
 - **float getMilliBar()** returns pressure in milliBar.
 Returns 0 after a reset() and if no read() has been done yet.
@@ -114,19 +118,20 @@ Calling **getMilliBar()** (Or any of the other pressure functions) multiple time
 without read() will return the same value again.
 - **float getPSI()** returns pressure in PSI = Pounds per Square Inch.
 
-Related library: https://github.com/RobTillaart/pressure conversions
+Related library: https://github.com/RobTillaart/pressure additional conversions.
 
 - **float getCelsius()** returns temperature in Celsius.
 - **float getFahrenheit()** returns temperatue in Fahrenheit.
 
-Related library:  https://github.com/RobTillaart/temperature conversions
+Related library: https://github.com/RobTillaart/temperature additional conversions.
 
 
 ### State
 
 - **uint16_t errorCount()** total counter for the number of errors occurred.
+internal counter wraps after 65535.
 - **uint32_t lastRead()** time in milliseconds of last successful read of the sensor.
-- **int state()** last known state of read, also returned by **read()**
+- **int state()** last known state of read(), which is also returned by **read()**
 
 |  state                   |  meaning             |
 |:-------------------------|:---------------------|
@@ -176,7 +181,8 @@ TODO:
 - add altitude code (from MS5837)
 - improve state code after reset() and before read() ?
   - MS4525DO_NO_READ or MS4525DO_RESET?
-- MS4525DO_OVF_ERROR shouold bits just be masked?
+- MS4525DO_OVF_ERROR should bits just be masked?
+- begin(float psi) to allow calibration or even arbitrary units.
 
 #### Wont
 

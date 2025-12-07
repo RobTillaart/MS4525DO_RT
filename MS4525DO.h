@@ -8,23 +8,6 @@
 //     URL: https://github.com/RobTillaart/MS4525DO_RT
 
 
-//  TODO adjust comments.
-
-
-//  TESTED TYPES - type A 10% - 90% only
-//
-//  ADDRESS   PRESSURE   RANGE          TYPE      P   A T V
-//  0x58      100 psi    0..6895 mBar   SSCDANN 100PG 5 A 5
-//  0x38       60 psi    0..4137 mbar   SSCDANN 060PG 3 A 5
-//  0x28       30 psi    0..2068 mbar   SSCDANN 030PG 2 A 5
-//
-//  P = pressure range
-//  A = I2C address indicator
-//  T = accuracy range
-//  V = voltage (3 volt also supported, not tested)
-//
-
-
 #include "Wire.h"
 #include "Arduino.h"
 
@@ -55,7 +38,7 @@ public:
   uint8_t  getAddress();
 
 
-  //  returns status OK (1) or ERROR ( other )
+  //  returns status MS4525DO_OK (1) or ERROR ( other )
   int      read();
 
   //  returns the pressure of last successful read
@@ -65,7 +48,7 @@ public:
   float    getFahrenheit() { return _temperature * 1.8 + 32.0; };
 
 
-  //  # errors since last good read
+  //  # errors since last reset
   uint16_t errorCount() { return _errorCount; };
   //  timestamp of last good read
   uint32_t lastRead()   { return _lastRead; };
@@ -88,7 +71,7 @@ private:
   int      _rtc;          //  raw counter for debugging.
 
   uint8_t  _state;
-  uint32_t _errorCount;
+  uint16_t _errorCount;
   uint32_t _lastRead;
   char     _type;
 };

@@ -1,9 +1,9 @@
 //
 //    FILE: unit_test_001.cpp
 //  AUTHOR: Rob Tillaart
-//    DATE: 2020-12-03
-// PURPOSE: unit tests for the MS4525DO pressure sensor library
-//          https://github.com/RobTillaart/MS4525DO
+//    DATE: 2025-12-06
+// PURPOSE: unit tests for the I2C MS4525DO pressure sensor library
+//          https://github.com/RobTillaart/MS4525DO_RT
 //          https://github.com/Arduino-CI/arduino_ci/blob/master/REFERENCE.md
 //
 
@@ -49,7 +49,7 @@ unittest_teardown()
 
 unittest(test_constructor)
 {
-  MS4525DO sensor(0x58);
+  MS4525DO sensor(0x28);
 
   assertEqual(MS4525DO_INIT, sensor.state());
 

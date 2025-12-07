@@ -11,7 +11,7 @@
 MS4525DO sensor(0x28);
 
 uint32_t start, stop;
-volatile uint32_t pressure = 0;
+volatile float pressure = 0;
 
 
 void setup()
@@ -28,6 +28,8 @@ void setup()
   {
     Serial.print("Cannot find sensor:\t");
     Serial.print(sensor.getAddress());
+    Serial.print(" - state: ");
+    Serial.println(sensor.state());
     Serial.println("Check wires or try another address.");
     while(1);
   }
