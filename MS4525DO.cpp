@@ -115,7 +115,6 @@ int MS4525DO::read()
     _pressure = (_rawPressure - 819) * _maxPressure * 6.7824200E-5;
   }
 
-
   //  PROCESS TEMPERATURE
   _rawTemperature  = _wire->read() * 256;  //  hi byte
   _rawTemperature += _wire->read();        //  lo byte

@@ -6,10 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
 ## [0.2.0] - 2026-03-03
-- fix #3, fix Temperature right
+- fix #3, fix Temperature, kudos to NathanBourgeois
 - renamed internal rpc to rawPressure
 - renamed internal rtc to rawTemperature
 - made raw internals unsigned (rpc and rtc)
+- add doc with programming notes.
 - update GitHub actions
 - update readme.md
 - update keywords.txt

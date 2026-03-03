@@ -79,6 +79,7 @@ Always check datasheet for the exact pins.
 - https://github.com/RobTillaart/MS5837 - (I2C) temperature pressure sensor  (incl pressure to altitude)
 - https://github.com/RobTillaart/MS5611 - (I2C) temperature pressure sensor  (incl pressure to altitude)
 - https://github.com/RobTillaart/MSP300 - (I2C) industrial pressure transducer
+- https://github.com/RobTillaart/printHelpers - printing scientific format et al.
 - https://swharden.com/blog/2017-04-29-precision-pressure-meter-project/
 
 
